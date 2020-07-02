@@ -1,0 +1,25 @@
+{
+  "name": "userapi",
+  "version": "1.0.0",
+  "description": "user API using express and mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanaiyabhanu/userapi.git"
+  },
+  "author": "kanaiya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kanaiyabhanu/userapi/issues"
+  },
+  "homepage": "https://github.com/kanaiyabhanu/userapi#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  }
+}
