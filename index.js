@@ -5,10 +5,11 @@ let cors = require("cors");
 let app = express();
 app.use(cors());
 let user = require("./routes/user");
-
+let auth = require("./routes/auth/user");
 //middlewares
 app.use(express.json());
 app.use("/api/users", user);
+app.use("/api", auth);
 
 mongoose
   .connect("mongodb://localhost/kan", {
