@@ -6,11 +6,16 @@ let app = express();
 app.use(cors());
 let user = require("./routes/user");
 let auth = require("./routes/auth/user");
+let config = require("config");
 //middlewares
 app.use(express.json());
 app.use("/api/users", user);
 app.use("/api", auth);
 
+if (!config.get("ENV_PASSWORD")) {
+  console.log("ACCESS DENIED");
+  process.exit(1);
+}
 mongoose
   .connect("mongodb://localhost/kan", {
     useNewUrlParser: true,

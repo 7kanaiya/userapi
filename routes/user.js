@@ -44,9 +44,9 @@ router.post("/user/newuser", async (req, res) => {
     newData.UserLogin.Password,
     salt
   );
-
+  let token = user.JwtToken();
   let data = await newData.save();
-  res.send({ message: "registered successfully", d: data });
+  res.send({ message: "registered successfully", d: data, t: token });
 });
 function ValidationError(error) {
   let Schema = Joi.object({
