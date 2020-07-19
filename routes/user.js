@@ -3,9 +3,10 @@ let Joi = require("@hapi/joi");
 let bcrypt = require("bcrypt");
 let router = express.Router();
 let model = require("../db/user");
+let usermiddleware = require("../middleware/user");
 
 //all users
-router.get("/allusers", async (req, res) => {
+router.get("/allusers", usermiddleware, async (req, res) => {
   let users = await model.find();
   res.send({ data: users });
 });
@@ -46,7 +47,9 @@ router.post("/user/newuser", async (req, res) => {
   );
   let token = user.JwtToken();
   let data = await newData.save();
-  res.send({ message: "registered successfully", d: data, t: token });
+  res
+    .header("x-auth-token", token)
+    .send({ message: "registered successfully", d: data, t: token });
 });
 function ValidationError(error) {
   let Schema = Joi.object({

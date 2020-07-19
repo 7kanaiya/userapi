@@ -21,7 +21,7 @@ router.post("/auth", async (req, res) => {
     return res.status(404).send({ message: "Invalid Password" });
   }
   let token = user.JwtToken();
-  res.send({ message: "Login Done", token });
+  res.header("x-auth-token", token).send({ message: "Login Done" });
 });
 
 module.exports = router;
