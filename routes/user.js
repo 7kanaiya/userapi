@@ -4,6 +4,7 @@ let bcrypt = require("bcrypt");
 let router = express.Router();
 let model = require("../db/user");
 let usermiddleware = require("../middleware/user");
+let adminmiddleware = require("../middleware/admin");
 
 //all users
 router.get("/allusers", usermiddleware, async (req, res) => {
@@ -12,7 +13,7 @@ router.get("/allusers", usermiddleware, async (req, res) => {
 });
 
 //users by id
-router.get("/user/:id", async (req, res) => {
+router.get("/user/:id", [usermiddleware, adminmiddleware], async (req, res) => {
   let user = await model.findById(req.params.id);
   if (!user) {
     return res.status(404).send({ message: "Invalid user ID" });
@@ -45,6 +46,7 @@ router.post("/user/newuser", async (req, res) => {
     newData.UserLogin.Password,
     salt
   );
+  //let token = user.JwtToken();
   let token = user.JwtToken();
   let data = await newData.save();
   res

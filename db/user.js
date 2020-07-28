@@ -12,10 +12,11 @@ let userSchema = new mongoose.Schema({
     UserName: { type: String, required: true, unique: true },
     Password: { type: String, required: true },
   },
+  isAdmin: { type: Boolean },
 });
 userSchema.methods.JwtToken = function () {
   let token = jwt.sign(
-    { _id: this.id, FirstName: this.FirstName },
+    { _id: this.id, FirstName: this.FirstName, isAdmin: this.isAdmin },
     config.get("ENV_PASSWORD")
   );
   return token;
